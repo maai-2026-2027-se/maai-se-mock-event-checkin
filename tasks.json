@@ -1,0 +1,71 @@
+[
+  {
+    "id": "C1",
+    "round": 1,
+    "title": "Count ticket types",
+    "function": "ticket_counts(attendees)",
+    "dependencies": []
+  },
+  {
+    "id": "C2",
+    "round": 1,
+    "title": "List checked-in names",
+    "function": "checked_in_names(attendees)",
+    "dependencies": []
+  },
+  {
+    "id": "C3",
+    "round": 1,
+    "title": "Search the guest list",
+    "function": "find_attendees(attendees, query)",
+    "dependencies": []
+  },
+  {
+    "id": "C4",
+    "round": 2,
+    "title": "Fix check-in without mutation",
+    "function": "check_in(attendees, name)",
+    "dependencies": []
+  },
+  {
+    "id": "C5",
+    "round": 2,
+    "title": "Fix remaining capacity",
+    "function": "remaining_capacity(capacity, attendees)",
+    "dependencies": []
+  },
+  {
+    "id": "C6",
+    "round": 2,
+    "title": "Fix ticket normalization",
+    "function": "normalize_ticket(label)",
+    "dependencies": []
+  },
+  {
+    "id": "C7",
+    "round": 3,
+    "title": "Build the door report",
+    "function": "door_report(attendees)",
+    "dependencies": [
+      "C1",
+      "C2",
+      "C4"
+    ]
+  },
+  {
+    "id": "C8",
+    "round": 3,
+    "title": "Build a ticket-specific guest list",
+    "function": "guest_list(attendees, ticket)",
+    "dependencies": [
+      "C6"
+    ]
+  },
+  {
+    "id": "C9",
+    "round": 3,
+    "title": "Export the guest list to CSV",
+    "function": "to_csv(attendees)",
+    "dependencies": []
+  }
+]
