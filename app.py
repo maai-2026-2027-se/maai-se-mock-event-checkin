@@ -79,7 +79,11 @@ def door_report(attendees):
 
 def guest_list(attendees, ticket):
     """C8: Build a ticket-specific guest list. See TASKS.md for the complete contract."""
-    raise NotImplementedError("Implement C8: Build a ticket-specific guest list")
+    wanted = normalize_ticket(ticket)
+    return sorted(
+        (attendee for attendee in attendees if attendee['ticket'] == wanted),
+        key=lambda attendee: attendee['name'].casefold(),
+    )
 
 
 def to_csv(attendees):
