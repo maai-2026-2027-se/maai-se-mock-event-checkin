@@ -11,11 +11,7 @@ def registration_count(attendees):
 
 def ticket_counts(attendees):
     """C1: Count ticket types. See TASKS.md for the complete contract."""
-    counts = {}
-    for attendee in attendees:
-        ticket = attendee['ticket']
-        counts[ticket] = counts.get(ticket, 0) + 1
-    return counts
+    raise NotImplementedError("Implement C1: Count ticket types")
 
 
 def checked_in_names(attendees):
