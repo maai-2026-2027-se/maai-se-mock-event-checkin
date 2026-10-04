@@ -1,6 +1,6 @@
 """Event Check-in: a small standard-library-only teaching project."""
-import csv
-import io
+import csv  # noqa: F401 -- available for the round-three CSV task
+import io  # noqa: F401 -- available for the round-three CSV task
 import json
 
 
