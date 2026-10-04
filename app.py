@@ -21,7 +21,8 @@ def checked_in_names(attendees):
 
 def find_attendees(attendees, query):
     """C3: Search the guest list. See TASKS.md for the complete contract."""
-    raise NotImplementedError("Implement C3: Search the guest list")
+    needle = query.strip().casefold()
+    return [attendee for attendee in attendees if needle in attendee['name'].casefold()]
 
 
 def check_in(attendees, name):
