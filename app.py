@@ -11,7 +11,11 @@ def registration_count(attendees):
 
 def ticket_counts(attendees):
     """C1: Count ticket types. See TASKS.md for the complete contract."""
-    raise NotImplementedError("Implement C1: Count ticket types")
+    counts = {}
+    for attendee in attendees:
+        ticket = attendee['ticket']
+        counts[ticket] = counts.get(ticket, 0) + 1
+    return counts
 
 
 def checked_in_names(attendees):
@@ -30,10 +34,17 @@ def find_attendees(attendees, query):
 
 def check_in(attendees, name):
     """C4: Fix check-in without mutation. See TASKS.md for the complete contract."""
+    updated_attendees = []
+    found = False
     for attendee in attendees:
+        updated_attendee = dict(attendee)
         if attendee['name'] == name:
-            attendee['checked_in'] = True
-    return attendees
+            updated_attendee['checked_in'] = True
+            found = True
+        updated_attendees.append(updated_attendee)
+    if not found:
+        raise KeyError(name)
+    return updated_attendees
 
 
 def remaining_capacity(capacity, attendees):
@@ -67,7 +78,12 @@ def guest_list(attendees, ticket):
 
 def to_csv(attendees):
     """C9: Export the guest list to CSV. See TASKS.md for the complete contract."""
-    raise NotImplementedError("Implement C9: Export the guest list to CSV")
+    buffer = io.StringIO()
+    writer = csv.writer(buffer, lineterminator="\n")
+    writer.writerow(["name", "ticket", "checked_in"])
+    for attendee in attendees:
+        writer.writerow([attendee["name"], attendee["ticket"], 1 if attendee["checked_in"] else 0])
+    return buffer.getvalue()
 
 
 if __name__ == "__main__":

@@ -1,3 +1,3 @@
 # Release notes
 
-Round 3 features: C7.
+Round 3 features: C7, C9.
