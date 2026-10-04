@@ -34,10 +34,17 @@ def find_attendees(attendees, query):
 
 def check_in(attendees, name):
     """C4: Fix check-in without mutation. See TASKS.md for the complete contract."""
+    updated_attendees = []
+    found = False
     for attendee in attendees:
+        updated_attendee = dict(attendee)
         if attendee['name'] == name:
-            attendee['checked_in'] = True
-    return attendees
+            updated_attendee['checked_in'] = True
+            found = True
+        updated_attendees.append(updated_attendee)
+    if not found:
+        raise KeyError(name)
+    return updated_attendees
 
 
 def remaining_capacity(capacity, attendees):
