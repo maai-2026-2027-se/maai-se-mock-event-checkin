@@ -14,7 +14,11 @@ def registration_count(attendees):
 
 def ticket_counts(attendees):
     """C1: Count ticket types. See TASKS.md for the complete contract."""
-    raise NotImplementedError("Implement C1: Count ticket types")
+    counts = {}
+    for attendee in attendees:
+        ticket = attendee['ticket']
+        counts[ticket] = counts.get(ticket, 0) + 1
+    return counts
 
 
 def checked_in_names(attendees):
@@ -33,10 +37,17 @@ def find_attendees(attendees, query):
 
 def check_in(attendees, name):
     """C4: Fix check-in without mutation. See TASKS.md for the complete contract."""
+    updated_attendees = []
+    found = False
     for attendee in attendees:
+        updated_attendee = dict(attendee)
         if attendee['name'] == name:
-            attendee['checked_in'] = True
-    return attendees
+            updated_attendee['checked_in'] = True
+            found = True
+        updated_attendees.append(updated_attendee)
+    if not found:
+        raise KeyError(name)
+    return updated_attendees
 
 
 def remaining_capacity(capacity, attendees):
@@ -56,7 +67,14 @@ def normalize_ticket(label):
 
 def door_report(attendees):
     """C7: Build the door report. See TASKS.md for the complete contract."""
-    raise NotImplementedError("Implement C7: Build the door report")
+    registered = registration_count(attendees)
+    checked_in = len(checked_in_names(attendees))
+    return {
+        'registered': registered,
+        'checked_in': checked_in,
+        'not_arrived': registered - checked_in,
+        'tickets': ticket_counts(attendees),
+    }
 
 
 def guest_list(attendees, ticket):
