@@ -50,7 +50,14 @@ def normalize_ticket(label):
 
 def door_report(attendees):
     """C7: Build the door report. See TASKS.md for the complete contract."""
-    raise NotImplementedError("Implement C7: Build the door report")
+    registered = registration_count(attendees)
+    checked_in = len(checked_in_names(attendees))
+    return {
+        'registered': registered,
+        'checked_in': checked_in,
+        'not_arrived': registered - checked_in,
+        'tickets': ticket_counts(attendees),
+    }
 
 
 def guest_list(attendees, ticket):
