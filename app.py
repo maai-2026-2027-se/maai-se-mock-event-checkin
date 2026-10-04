@@ -54,7 +54,12 @@ def guest_list(attendees, ticket):
 
 def to_csv(attendees):
     """C9: Export the guest list to CSV. See TASKS.md for the complete contract."""
-    raise NotImplementedError("Implement C9: Export the guest list to CSV")
+    buffer = io.StringIO()
+    writer = csv.writer(buffer, lineterminator="\n")
+    writer.writerow(["name", "ticket", "checked_in"])
+    for attendee in attendees:
+        writer.writerow([attendee["name"], attendee["ticket"], 1 if attendee["checked_in"] else 0])
+    return buffer.getvalue()
 
 
 if __name__ == "__main__":
