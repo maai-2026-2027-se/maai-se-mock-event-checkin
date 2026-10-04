@@ -4,6 +4,9 @@ import io  # noqa: F401 -- available for the round-three CSV task
 import json
 
 
+TICKET_TYPES = ("standard", "vip", "student")
+
+
 def registration_count(attendees):
     """Existing working behavior; preserve it while adding features."""
     return len(attendees)
@@ -56,7 +59,10 @@ def remaining_capacity(capacity, attendees):
 
 def normalize_ticket(label):
     """C6: Fix ticket normalization. See TASKS.md for the complete contract."""
-    return label.lower()
+    normalized = label.strip().casefold()
+    if normalized not in TICKET_TYPES:
+        raise ValueError(f"unknown ticket type: {label!r}")
+    return normalized
 
 
 def door_report(attendees):
