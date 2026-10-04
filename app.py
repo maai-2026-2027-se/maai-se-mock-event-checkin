@@ -16,7 +16,10 @@ def ticket_counts(attendees):
 
 def checked_in_names(attendees):
     """C2: List checked-in names. See TASKS.md for the complete contract."""
-    raise NotImplementedError("Implement C2: List checked-in names")
+    return sorted(
+        (attendee['name'] for attendee in attendees if attendee['checked_in']),
+        key=str.casefold,
+    )
 
 
 def find_attendees(attendees, query):
