@@ -1,6 +1,6 @@
 """Event Check-in: a small standard-library-only teaching project."""
-import csv
-import io
+import csv  # noqa: F401 -- available for the round-three CSV task
+import io  # noqa: F401 -- available for the round-three CSV task
 import json
 
 
@@ -28,7 +28,8 @@ def checked_in_names(attendees):
 
 def find_attendees(attendees, query):
     """C3: Search the guest list. See TASKS.md for the complete contract."""
-    raise NotImplementedError("Implement C3: Search the guest list")
+    needle = query.strip().casefold()
+    return [attendee for attendee in attendees if needle in attendee['name'].casefold()]
 
 
 def check_in(attendees, name):
@@ -48,7 +49,9 @@ def check_in(attendees, name):
 
 def remaining_capacity(capacity, attendees):
     """C5: Fix remaining capacity. See TASKS.md for the complete contract."""
-    return capacity - sum(attendee['checked_in'] for attendee in attendees)
+    if capacity < 0:
+        raise ValueError("capacity must not be negative")
+    return max(capacity - registration_count(attendees), 0)
 
 
 def normalize_ticket(label):
@@ -68,7 +71,12 @@ def guest_list(attendees, ticket):
 
 def to_csv(attendees):
     """C9: Export the guest list to CSV. See TASKS.md for the complete contract."""
-    raise NotImplementedError("Implement C9: Export the guest list to CSV")
+    buffer = io.StringIO()
+    writer = csv.writer(buffer, lineterminator="\n")
+    writer.writerow(["name", "ticket", "checked_in"])
+    for attendee in attendees:
+        writer.writerow([attendee["name"], attendee["ticket"], 1 if attendee["checked_in"] else 0])
+    return buffer.getvalue()
 
 
 if __name__ == "__main__":
