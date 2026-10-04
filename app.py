@@ -37,7 +37,9 @@ def check_in(attendees, name):
 
 def remaining_capacity(capacity, attendees):
     """C5: Fix remaining capacity. See TASKS.md for the complete contract."""
-    return capacity - sum(attendee['checked_in'] for attendee in attendees)
+    if capacity < 0:
+        raise ValueError("capacity must not be negative")
+    return max(capacity - registration_count(attendees), 0)
 
 
 def normalize_ticket(label):
